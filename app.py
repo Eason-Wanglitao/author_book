@@ -1,7 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template
 
 import config
-from flask_sqlalchemy import SQLAlchemy
 
 from werkzeug.utils import secure_filename
 import os
@@ -13,7 +12,6 @@ app = Flask(__name__)
 app.config.from_object(config)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-db = SQLAlchemy(app)
 
 @app.route('/')
 def hello_world():
@@ -47,7 +45,7 @@ def upload_file():
 
             return redirect(request.url)
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
-        upload_path = os.path.join(basepath, '/Users/wanglitao/Desktop/author_book',
+        upload_path = os.path.join(basepath, '/root/download',
                                    secure_filename(file.filename))  # 注意：没有的文件夹一定要先创建，不然会提示没有该路径
         file.save(upload_path)
     return ''
